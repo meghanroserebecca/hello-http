@@ -9,6 +9,15 @@ chai.use(chaiHttp);
 describe('testing http servers with chai-http', () => {
     const request = chai.request(server);
 
+    it('PUT and other methods return 404 error', done => {
+        request
+            .put('/user/derpasaurus')
+            .end(function (err, res) {
+                expect(err).to.be.null;
+                expect(res).to.have.status(404);
+            });
+    });
+
     it('GET /greeting says stranger', done => {
         request
             .get('/greeting')
