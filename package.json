@@ -1,0 +1,35 @@
+{
+  "name": "hello-http",
+  "version": "1.0.0",
+  "description": "http server greeting app",
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha",
+    "start": "node server.js",
+    "watch": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meghanroserebecca/hello-http.git"
+  },
+  "author": "meghan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/meghanroserebecca/hello-http/issues"
+  },
+  "homepage": "https://github.com/meghanroserebecca/hello-http#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "eslint": "^3.14.1",
+    "mocha": "^3.2.0",
+    "nodemon": "^1.11.0",
+    "superagent": "^3.4.1"
+  },
+  "dependencies": {
+    "cowsay": "^1.1.9"
+  }
+}
