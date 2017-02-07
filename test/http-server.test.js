@@ -10,9 +10,22 @@ chai.use(chaiHttp);
 describe('testing http servers with chai-http', () => {
     const request = chai.request(server);
 
-    it('POST and other methods return 404 error', done => {
+    it('POST method with /facts adds to facts', done => {
         request
-            .post('/user/derpasaurus')
+            .post('/facts')
+            .send({"fact": "http is awesome!"})
+            .expect('Content-Type', /json/)
+            .end(function (err, res) {
+                if (err) done(err);
+                res.body.should.have.property('fact');
+                res.body.facts.should.have.property('http is awesome!');
+                done();
+            });
+    });
+
+    it('PUT and other non-GET/POST methods return 404 error', done => {
+        request
+            .put('/greetings')
             .end(function (err, res) {
                 expect(err).to.be.err;
                 expect(res).to.have.status(404);
@@ -56,11 +69,11 @@ describe('testing http servers with chai-http', () => {
             });
     });
 
-    it('GET /fact provides fact', done => {
+    it('GET /facts provides fact', done => {
         request
-            .get('/fact')
+            .get('/facts')
             .end((err, res) => {
-                assert.strictEqual(res.text, 'Did you know that HTTP is not the only application layer protocol method for getting documents from the Internet? There are many others.');
+                assert.strictEqual(res.text, '["Did you know that HTTP is not the only application layer protocol method for getting documents from the Internet? There are many others.","HTTP works by using a user agent to connect to a server. The user agent could be a web browser or spider. The server must be located using a URL or URI. This always contains http:// at the start. It normally connects to port 80 on a computer.","HTTP was developed by Tim Berners-Lee and his team and is currently coordinated by W3C"]');
                 done();
             });
     });
