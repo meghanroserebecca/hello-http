@@ -2,6 +2,7 @@ const server = require('../lib/http-server');
 
 const chai = require('chai');
 const assert = chai.assert;
+const expect = chai.expect;
 const chaiHttp = require('chai-http');
 
 chai.use(chaiHttp);
@@ -13,8 +14,9 @@ describe('testing http servers with chai-http', () => {
         request
             .post('/user/derpasaurus')
             .end(function (err, res) {
-                expect(err).to.be.null;
+                expect(err).to.be.err;
                 expect(res).to.have.status(404);
+                done();
             });
     });
 
