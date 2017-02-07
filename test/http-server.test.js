@@ -13,12 +13,10 @@ describe('testing http servers with chai-http', () => {
     it('POST method with /facts adds to facts', done => {
         request
             .post('/facts')
-            .send({"fact": "http is awesome!"})
-            .expect('Content-Type', /json/)
+            .send('http is awesome')
             .end(function (err, res) {
                 if (err) done(err);
-                res.body.should.have.property('fact');
-                res.body.facts.should.have.property('http is awesome!');
+                assert.equal(res.text, 'You have added http is awesome to facts!');
                 done();
             });
     });
@@ -73,7 +71,7 @@ describe('testing http servers with chai-http', () => {
         request
             .get('/facts')
             .end((err, res) => {
-                assert.strictEqual(res.text, '["Did you know that HTTP is not the only application layer protocol method for getting documents from the Internet? There are many others.","HTTP works by using a user agent to connect to a server. The user agent could be a web browser or spider. The server must be located using a URL or URI. This always contains http:// at the start. It normally connects to port 80 on a computer.","HTTP was developed by Tim Berners-Lee and his team and is currently coordinated by W3C"]');
+                assert.strictEqual(res.text, '["Did you know that HTTP is not the only application layer protocol method for getting documents from the Internet? There are many others.","HTTP works by using a user agent to connect to a server. The user agent could be a web browser or spider. The server must be located using a URL or URI. This always contains http:// at the start. It normally connects to port 80 on a computer.","HTTP was developed by Tim Berners-Lee and his team and is currently coordinated by W3C","http is awesome"]');
                 done();
             });
     });
